@@ -1,0 +1,38 @@
+name: Publish sound pack
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check version and build pack
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          version = json.loads(Path('openpeon.json').read_text())['version']
+          assert os.environ['RELEASE_TAG'] == f'v{version}', 'Tag must match manifest version'
+          PY
+          python3 scripts/pack.py build
+      - name: Publish ZIP and checksum
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo 'Release already exists; refusing to replace published assets.' >&2
+            exit 1
+          fi
+          gh release create "$RELEASE_TAG" dist/boris-*.zip dist/SHA256SUMS \
+            --verify-tag --title "Boris — Dai, dai, dai! $RELEASE_TAG" \
+            --notes-file docs/release-notes.md

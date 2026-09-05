@@ -61,13 +61,14 @@ and test the archive before tagging the committed source. For version 1.0.0:
 ```sh
 git tag v1.0.0
 git push origin main v1.0.0
-gh release create v1.0.0 dist/boris-1.0.0.zip dist/SHA256SUMS \
-  --verify-tag --title 'Boris — Dai, dai, dai! v1.0.0' --notes-file release-notes.md
 ```
 
-Prepare `release-notes.md` outside the release archive with the two installation
-commands from the README. Upload the pack ZIP as a release asset; GitHub's
-automatic source archives contain developer files and are not the install ZIP.
+The release workflow checks that the tag matches the manifest version, validates
+and builds the pack, then publishes the ZIP and checksum using
+`docs/release-notes.md`. It uses GitHub Actions authentication and does not need
+a personal access token. Existing releases are never overwritten.
+Check that the workflow succeeds and the README download URL works.
+GitHub's automatic source archives contain developer files and are not the install ZIP.
 
 ## OpenPeon registry
 
