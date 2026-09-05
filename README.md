@@ -1,7 +1,7 @@
 # Boris — Dai, dai, dai!
 
 Questo README lo scriviamo in italiano, perché **l'inglese c'ha rotto il cazzo**.
-Se ti senti come Stanis e ti sembra troppo italiano, c'è la [versione inglese](README.en.md).
+Se ti senti come Stanis e ti sembra troppo italiano, c'è la [versione inglese](README.en.md): thank you for being so not Italian.
 
 16 clip vocali da **Boris**, pronte per [PeonPing](https://github.com/PeonPing/peon-ping):
 René, Duccio, Stanis e tutta la troupe reagiscono alle smarmellate del tuo coding agent.

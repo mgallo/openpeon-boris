@@ -1,5 +1,6 @@
 # Boris — Dai, dai, dai!
 
+Thank you for being so not Italian:
 16 Italian voice clips from **Boris**, ready for [PeonPing](https://github.com/PeonPing/peon-ping):
 René, Duccio, Stanis, and the crew reacting to your coding sessions.
 Contains explicit language.
