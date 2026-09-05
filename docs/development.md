@@ -49,6 +49,10 @@ This validates the pack and creates three files in the ignored `dist/` folder:
 - `registry-entry.json`: metadata for an OpenPeon registry submission.
 
 The ZIP is reproducible: unchanged inputs produce an identical checksum.
+The README currently links directly to the verified archive in `downloads/`,
+so installation does not depend on release automation. When updating this
+download, copy the built ZIP and `SHA256SUMS` into `downloads/` and commit them
+along with the README link. Keep existing versioned archives unchanged.
 The registry entry uses the build date; retain the original `added` date when
 updating an existing registry listing. The sound count follows the registry's
 CI convention of counting unique audio files.

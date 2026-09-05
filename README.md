@@ -8,7 +8,7 @@ Contains explicit language.
 
 Already have PeonPing configured for your editor?
 
-1. Download **[boris-1.0.0.zip](https://github.com/mgallo/openpeon-boris/releases/download/v1.0.0/boris-1.0.0.zip)**.
+1. Download **[boris-1.0.0.zip](https://raw.githubusercontent.com/mgallo/openpeon-boris/main/downloads/boris-1.0.0.zip)**.
 2. Extract it. You will get a folder named `boris`.
 3. Open a terminal in the folder containing `boris` and run:
 
@@ -19,6 +19,7 @@ Already have PeonPing configured for your editor?
 
 That's it. The ZIP contains only the manifest, audio, and credits.
 No cloning or project Python scripts required. PeonPing manages its own runtime dependencies.
+The archive checksum is in [SHA256SUMS](downloads/SHA256SUMS).
 
 To replace an existing Boris installation, use
 `peon packs install-local ./boris --force`, then `peon packs use boris`.
