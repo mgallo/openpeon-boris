@@ -1,0 +1,141 @@
+{
+  "cesp_version": "1.0",
+  "name": "boris",
+  "display_name": "Boris — Dai, dai, dai!",
+  "version": "1.0.0",
+  "description": "René, Duccio e la troupe di Boris nel tuo terminale. Unofficial Italian TV sound pack; contains explicit language.",
+  "language": "it",
+  "categories": {
+    "session.start": {
+      "sounds": [
+        {
+          "file": "sounds/dai_dai_dai.mp3",
+          "label": "Dai, dai, dai! — René",
+          "sha256": "b4ce0473256bf9015d6305f242732c2b1bc3a189dffbd874f62c494f8b3547b4"
+        },
+        {
+          "file": "sounds/apri_tutto.mp3",
+          "label": "Apri tutto — Duccio",
+          "sha256": "25ea42129d43171a7110e6f0af0db415069c5530d91c46de00ee9d38d9fdd26e"
+        }
+      ]
+    },
+    "task.acknowledge": {
+      "sounds": [
+        {
+          "file": "sounds/apri_tutto.mp3",
+          "label": "Apri tutto — Duccio",
+          "sha256": "25ea42129d43171a7110e6f0af0db415069c5530d91c46de00ee9d38d9fdd26e"
+        },
+        {
+          "file": "sounds/dai_dai_dai.mp3",
+          "label": "Dai, dai, dai! — René",
+          "sha256": "b4ce0473256bf9015d6305f242732c2b1bc3a189dffbd874f62c494f8b3547b4"
+        }
+      ]
+    },
+    "task.complete": {
+      "sounds": [
+        {
+          "file": "sounds/mito.mp3",
+          "label": "Mito, genio — René",
+          "sha256": "5c576ddd20899c62411110223ef9d31d5e9f8025254dc160e58790a00995d824"
+        },
+        {
+          "file": "sounds/bucio_de_culo.mp3",
+          "label": "Bucio de culo — Martellone",
+          "sha256": "93e00b6c251072dd62d7fcd35784126532bc290616c005bbae6369b1388b0e67"
+        },
+        {
+          "file": "sounds/sticazzi.mp3",
+          "label": "Sticazzi — Martellone",
+          "sha256": "c8bb818488e73b97d362a24c3d128750a8a5497d429407e24ea87b613b7ac16e"
+        }
+      ]
+    },
+    "task.error": {
+      "sounds": [
+        {
+          "file": "sounds/a_cazzo_di_cane.mp3",
+          "label": "A cazzo di cane — René",
+          "sha256": "af12684c8c19c31eb5192c75f0abf0c8da92960dee9ef05aba0b98e657a9d6fe"
+        },
+        {
+          "file": "sounds/cagna_maledetta.mp3",
+          "label": "Cagna maledetta — René",
+          "sha256": "4626b04d9c1fb495282cd3a119f29b7c462d3e31051f1627708cac0440827522"
+        },
+        {
+          "file": "sounds/stocazzo.mp3",
+          "label": "È stato stocazzo — Karin",
+          "sha256": "018e7ee6e1f0e47f8df0e778694c4aecc5454ffc8d2046cd49f7f6c7fc051c34"
+        },
+        {
+          "file": "sounds/italiano.mp3",
+          "label": "Sei molto italiano — Stanis",
+          "sha256": "23b2371164542e0f3e37c015fbcb3252bd66d53d8ec00b568cec384724d00b51"
+        }
+      ]
+    },
+    "input.required": {
+      "sounds": [
+        {
+          "file": "sounds/ce_se_capisce.mp3",
+          "label": "Ce se capisce e ’nce se capisce — Sergio",
+          "sha256": "90843b555a617facf6d72d342ff845fdb22599596b0e00b51e9eb799ec774284"
+        },
+        {
+          "file": "sounds/ma_tu_chi_cazzo_sei.mp3",
+          "label": "Ma tu chi cazzo sei? — Stanis",
+          "sha256": "c28eda525b0d44716833245a1a94fcfdd41916726eaf83fec91d28fb36e4cf0a"
+        }
+      ]
+    },
+    "resource.limit": {
+      "sounds": [
+        {
+          "file": "sounds/qualita.mp3",
+          "label": "La qualità c’ha rotto er cazzo — René",
+          "sha256": "bd79e3084f31b92a7f81df313b2f8491615ca1428f6a6041124b5b881fc92833"
+        },
+        {
+          "file": "sounds/attaccati_ar_cazzo.mp3",
+          "label": "Attaccati al cazzo — Martellone",
+          "sha256": "83f0a635e20983e7e431a18503379dc981c3df2211dd64f6f0cc991322d620ed"
+        }
+      ]
+    },
+    "user.spam": {
+      "sounds": [
+        {
+          "file": "sounds/muto.mp3",
+          "label": "Muto — Biascica",
+          "sha256": "781b76f42a2d8a4e9596219edf59674172e79eefb137c582267cd8ffb1df479d"
+        },
+        {
+          "file": "sounds/rompere_i_coglioni.mp3",
+          "label": "Non mi devi rompere i coglioni — Arianna",
+          "sha256": "b778a765e1562eebc24f2244c420edd32a564554070e9c7e5e340f42197a5c6b"
+        }
+      ]
+    },
+    "session.end": {
+      "sounds": [
+        {
+          "file": "sounds/sticazzi.mp3",
+          "label": "Sticazzi — Martellone",
+          "sha256": "c8bb818488e73b97d362a24c3d128750a8a5497d429407e24ea87b613b7ac16e"
+        }
+      ]
+    },
+    "task.progress": {
+      "sounds": [
+        {
+          "file": "sounds/se_me_vedi_distratto.mp3",
+          "label": "Se me vedi distratto… — Biascica",
+          "sha256": "fd23175b106995d49aece62f1dc17124877925d3e6621cb818f83072fd790a11"
+        }
+      ]
+    }
+  }
+}

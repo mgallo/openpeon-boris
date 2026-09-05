@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boris — PeonPing sound pack</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #141715; color: #f1f0df; }
+    body { max-width: 1050px; margin: auto; padding: 48px 24px; }
+    .eyebrow { color: #d5eb7c; text-transform: uppercase; letter-spacing: .18em; font-size: .8rem; }
+    h1 { font-size: clamp(3rem, 9vw, 6rem); line-height: 1; margin: 24px 0; }
+    header p { max-width: 640px; line-height: 1.7; color: #bec5ba; }
+    a { color: #d5eb7c; }
+    #categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 32px; }
+    section { padding: 24px; background: #202620; border: 1px solid #3b4638; border-radius: 12px; }
+    h2 { font-size: 1.1rem; margin: 0 0 8px; }
+    code { color: #b6c999; font-size: .8rem; }
+    button { display: block; width: 100%; text-align: left; padding: 12px; margin-top: 12px; border: 1px solid #59694c; border-radius: 6px; background: #293025; color: inherit; font: inherit; cursor: pointer; }
+    button:hover, button:focus-visible { background: #405032; outline: 2px solid #d5eb7c; }
+    label { display: flex; gap: 12px; align-items: center; margin: 24px 0; }
+    #status { min-height: 1.5em; color: #d5eb7c; }
+    footer { margin-top: 36px; color: #bec5ba; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">PeonPing / Italian sound pack</div>
+    <h1>Dai, dai, dai!</h1>
+    <p>La troupe di <strong>Boris</strong>, nel tuo terminale. Premi una battuta per ascoltare le notifiche del pack. Contiene linguaggio esplicito.</p>
+    <label>Volume <input id="volume" type="range" min="0" max="1" step="0.05" value="0.5"></label>
+    <button id="stop" type="button" style="width:auto">Ferma audio</button>
+    <p id="status" role="status">Caricamento…</p>
+  </header>
+  <main id="categories"></main>
+  <footer>Fan pack non ufficiale. Audio da <a href="https://github.com/cedmax/boris-soundboard">cedmax/boris-soundboard</a> · <a href="CREDITS.md">Crediti</a> · <a href="openpeon.json">Manifest CESP</a></footer>
+  <script>
+    const audio = new Audio();
+    const status = document.querySelector('#status');
+    const volume = document.querySelector('#volume');
+    audio.volume = Number(volume.value);
+    volume.addEventListener('input', () => { audio.volume = Number(volume.value); });
+    document.querySelector('#stop').addEventListener('click', () => { audio.pause(); audio.currentTime = 0; status.textContent = 'Audio fermato.'; });
+    audio.addEventListener('ended', () => { status.textContent = 'Pronto. Scegli una battuta.'; });
+    const titles = {'session.start': 'Si gira!', 'task.acknowledge': 'Al lavoro', 'task.complete': 'Buona la prima', 'task.error': 'È tutto da rifare', 'input.required': 'Serve una risposta', 'resource.limit': 'Abbiamo finito i mezzi', 'user.spam': 'Un attimo!', 'session.end': 'Fine riprese', 'task.progress': 'Stiamo lavorando'};
+    fetch('openpeon.json').then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    }).then(pack => {
+      for (const [category, entry] of Object.entries(pack.categories)) {
+        const section = document.createElement('section');
+        const title = document.createElement('h2'); title.textContent = titles[category] || category;
+        const code = document.createElement('code'); code.textContent = category;
+        section.append(title, code);
+        for (const sound of entry.sounds) {
+          const button = document.createElement('button'); button.type = 'button'; button.textContent = `▶ ${sound.label}`;
+          button.addEventListener('click', async () => {
+            audio.pause(); audio.src = sound.file;
+            status.textContent = sound.label;
+            try { await audio.play(); } catch (error) { status.textContent = `Riproduzione non riuscita: ${error.message}`; }
+          });
+          section.append(button);
+        }
+        document.querySelector('#categories').append(section);
+      }
+      status.textContent = 'Pronto. Scegli una battuta.';
+    }).catch(error => { status.textContent = `Impossibile caricare il pack. Avvia python3 -m http.server 8765 e apri http://localhost:8765. (${error.message})`; });
+  </script>
+</body>
+</html>
