@@ -1,100 +1,63 @@
 # Boris — Dai, dai, dai!
 
-A PeonPing sound pack with 16 original Italian clips from **Boris**: René,
-Duccio, Stanis, and the crew reacting to your coding sessions. Contains explicit
-language. All MP3s are included; no audio downloads or Python packages needed.
+16 Italian voice clips from **Boris**, ready for [PeonPing](https://github.com/PeonPing/peon-ping):
+René, Duccio, Stanis, and the crew reacting to your coding sessions.
+Contains explicit language.
 
-## Listen now
+## Install
 
-From this directory, run:
+Already have PeonPing configured for your editor?
+
+1. Download **[boris-1.0.0.zip](https://github.com/mgallo/openpeon-boris/releases/download/v1.0.0/boris-1.0.0.zip)**.
+2. Extract it. You will get a folder named `boris`.
+3. Open a terminal in the folder containing `boris` and run:
+
+   ```sh
+   peon packs install-local ./boris
+   peon packs use boris
+   ```
+
+That's it. The ZIP contains only the manifest, audio, and credits.
+No cloning or project Python scripts required. PeonPing manages its own runtime dependencies.
+
+To replace an existing Boris installation, use
+`peon packs install-local ./boris --force`, then `peon packs use boris`.
+
+Optional preview:
 
 ```sh
-python3 -m http.server 8765 --bind 127.0.0.1
+peon preview task.complete
 ```
 
-Open http://localhost:8765 for the soundboard, grouped by event, with playback
-and volume controls. Stop the server with Ctrl+C.
+Boris is not yet listed in the OpenPeon registry. Until it is accepted, use the
+ZIP above. After registration, installation will also be available with
+`peon packs use --install boris`.
 
-Or play a random completion clip directly (macOS uses built-in `afplay`; Linux
-requires `ffplay` or `mpg123`):
+## New to PeonPing?
 
-```sh
-python3 scripts/pack.py play task.complete
-```
-
-## Install in PeonPing
-
-Requires Python 3 and a current [PeonPing installation](https://github.com/PeonPing/peon-ping#install)
-with `peon packs install-local`. On macOS, install and register PeonPing first:
+Install PeonPing once, then configure its integration for your editor using the
+[official setup instructions](https://github.com/PeonPing/peon-ping#install).
+With Homebrew on macOS or Linux:
 
 ```sh
 brew install PeonPing/tap/peon-ping
 peon-ping-setup
 ```
 
-Then, from this repository:
+Follow the adapter instructions for your editor, then install Boris above.
+The pack supplies sounds; PeonPing and its editor adapter trigger playback.
+Events available depend on the adapter.
+
+## Controls
 
 ```sh
-python3 scripts/pack.py install
-peon preview task.complete
+peon pause
+peon resume
+peon volume 0.5
+peon status
 ```
 
-The script validates the pack, installs only its manifest, audio, and credits,
-and selects `boris` as the active pack. It uses PeonPing's own installation and
-configuration commands. To replace an earlier Boris installation, run
-`python3 scripts/pack.py install --force`.
-
-Agent hook setup belongs to PeonPing; installing this pack alone does not
-register an agent adapter. Follow its documentation for your editor. Events
-depend on the adapter: not every editor emits every category.
-
-## Codex integration in this repo
-
-PeonPing can be installed and connected specifically to this workspace with:
-
-```sh
-brew install PeonPing/tap/peon-ping
-python3 scripts/setup-codex.py
-```
-
-The setup script installs Boris in `~/.openpeon`, selects it, and writes
-project hooks to `.codex/hooks.json`. It uses the Homebrew Codex adapter and
-preserves existing hook entries. Machine-specific paths are saved under the
-ignored `.runtime/` directory; rerun setup after moving or cloning this repo.
-The general `peon-ping-setup` command is not needed for this Codex-only setup.
-Audio starts at 50% volume; desktop overlays are disabled on a fresh setup.
-
-**Restart Codex or open a new session in this trusted workspace** after setup.
-Run `/hooks` and review/trust the five entries pointing to `scripts/codex-hook.py`.
-Codex skips new or changed hooks until you trust their exact definitions; workspace
-trust alone is not enough. Then ask it to “Reply with OK” to hear a completion
-quote. In the terminal:
-
-```sh
-codex -C .
-```
-
-Test the same hook directly without starting a model request:
-
-```sh
-python3 scripts/codex-hook.py --test Stop
-python3 scripts/codex-hook.py --test PermissionRequest
-peon preview task.complete
-```
-
-Registered events: `SessionStart` → greeting, `Stop` → completion,
-`PermissionRequest` → input required, `PreCompact` → resource limit, and
-`UserPromptSubmit` → acknowledgement / rapid-prompt detection. Acknowledgement
-audio remains off by default. Hooks run asynchronously and emit no decisions.
-This uses [Codex lifecycle hooks](https://learn.chatgpt.com/docs/hooks), available
-and enabled in the locally tested Codex CLI 0.153.4. It does not use the older,
-completion-only `notify` setting. Project hooks require workspace trust.
-
-Controls: `peon pause`, `peon resume`, `peon volume 0.5`, and `peon status`.
-To disconnect, remove the entries pointing to `scripts/codex-hook.py` from
-`.codex/hooks.json` and restart Codex.
-
-## Event mapping
+## What you will hear
 
 | Category | Clips |
 | --- | --- |
@@ -112,17 +75,15 @@ To disconnect, remove the entries pointing to `scripts/codex-hook.py` from
 `task.progress` are optional CESP categories; current built-in PeonPing hooks
 do not trigger them. They remain available for previews and compatible players.
 
-## Validate
+## Development
 
-```sh
-python3 scripts/pack.py validate
-python3 scripts/pack.py validate --decode  # also requires ffmpeg
-```
+The source repo also includes a browser soundboard and optional Python tools
+for validation, local playback, and release packaging. These tools are not part
+of the downloadable sound pack.
 
-Checks manifest fields, category names, safe paths, MP3 signatures, per-file
-and total size limits, SHA-256 hashes, and unreferenced audio. `--decode` also
-fully decodes every unique recording to detect broken audio.
+- [Development and release guide](docs/development.md)
+- [Optional workspace setup](docs/local-setup.md)
+- [Audio credits and provenance](CREDITS.md)
 
 The pack follows [CESP 1.0](https://openpeon.com/spec). Clips are unchanged,
-approximately 0.7–6.8 seconds long. See [CREDITS.md](CREDITS.md) for pinned
-source provenance and audio rights. No registry publication is configured.
+approximately 0.7–6.8 seconds long. All audio rights remain with their respective owners.

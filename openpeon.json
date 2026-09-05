@@ -5,6 +5,10 @@
   "version": "1.0.0",
   "description": "René, Duccio e la troupe di Boris nel tuo terminale. Unofficial Italian TV sound pack; contains explicit language.",
   "language": "it",
+  "author": {
+    "name": "mgallo",
+    "github": "mgallo"
+  },
   "categories": {
     "session.start": {
       "sounds": [

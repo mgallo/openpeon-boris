@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate, audition, and install the Boris CESP pack (Python 3, no packages)."""
 import argparse
+from datetime import date
 import hashlib
 import json
 from pathlib import Path
@@ -10,6 +11,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import zipfile
 
 ROOT = Path(__file__).resolve().parent.parent
 CATEGORIES = {'session.start', 'task.acknowledge', 'task.complete', 'task.error',
@@ -53,17 +55,58 @@ def validate(decode=False):
     return manifest
 
 
+def build(manifest):
+    """Build a data-only release and metadata for a registry submission."""
+    output = ROOT / 'dist'
+    output.mkdir(exist_ok=True)
+    name = manifest['name']
+    version = manifest['version']
+    sounds = sorted({sound['file'] for category in manifest['categories'].values()
+                     for sound in category['sounds']})
+    files = ['openpeon.json', 'CREDITS.md', *sounds]
+    archive = output / f'{name}-{version}.zip'
+    # Fixed metadata makes the same pack produce byte-identical archives.
+    with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED) as bundle:
+        for filename in files:
+            info = zipfile.ZipInfo(f'{name}/{filename}', date_time=(2020, 1, 1, 0, 0, 0))
+            info.create_system = 3
+            info.external_attr = 0o100644 << 16
+            info.compress_type = zipfile.ZIP_DEFLATED
+            bundle.writestr(info, (ROOT / filename).read_bytes())
+    checksum = hashlib.sha256(archive.read_bytes()).hexdigest()
+    (output / 'SHA256SUMS').write_text(f'{checksum}  {archive.name}\n')
+    today = date.today().isoformat()
+    entry = {
+        'name': name, 'display_name': manifest['display_name'], 'version': version,
+        'description': manifest['description'], 'author': manifest['author'],
+        'trust_tier': 'community', 'categories': list(manifest['categories']),
+        'language': manifest['language'], 'sound_count': len(sounds),
+        'total_size_bytes': sum((ROOT / filename).stat().st_size for filename in files),
+        'source_repo': 'mgallo/openpeon-boris', 'source_ref': f'v{version}',
+        'source_path': '.',
+        'manifest_sha256': hashlib.sha256((ROOT / 'openpeon.json').read_bytes()).hexdigest(),
+        'tags': ['boris', 'italian', 'tv', 'comedy'],
+        'preview_sounds': ['dai_dai_dai.mp3', 'mito.mp3'],
+        'added': today, 'updated': today,
+    }
+    (output / 'registry-entry.json').write_text(json.dumps(entry, indent=2, ensure_ascii=False) + '\n')
+    print(f'Built: {archive.name}, SHA256SUMS, registry-entry.json in dist/')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
     sub.add_parser('validate').add_argument('--decode', action='store_true', help='Fully decode each MP3 with ffmpeg')
+    sub.add_parser('build', help='Build the release ZIP, checksum, and registry entry in dist/')
     play = sub.add_parser('play', help='Play one random clip locally; no PeonPing needed')
     play.add_argument('category', nargs='?', default='task.complete', choices=sorted(CATEGORIES))
     install = sub.add_parser('install', help='Install and activate in an existing PeonPing installation')
     install.add_argument('--force', action='store_true', help='Replace an existing Boris pack')
     args = parser.parse_args()
     manifest = validate(getattr(args, 'decode', False))
-    if args.command == 'play':
+    if args.command == 'build':
+        build(manifest)
+    elif args.command == 'play':
         sounds = manifest['categories'].get(args.category, {}).get('sounds', [])
         if not sounds:
             raise ValueError(f'No sounds for {args.category}')
