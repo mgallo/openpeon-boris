@@ -1,55 +1,61 @@
 # Boris — Dai, dai, dai!
 
-16 Italian voice clips from **Boris**, ready for [PeonPing](https://github.com/PeonPing/peon-ping):
-René, Duccio, Stanis, and the crew reacting to your coding sessions.
-Contains explicit language.
+Questo README lo scriviamo in italiano, perché **l'inglese c'ha rotto il cazzo**.
+Se ti senti come Stanis e ti sembra troppo italiano, c'è la [versione inglese](README.en.md).
 
-## Install
+16 clip vocali da **Boris**, pronte per [PeonPing](https://github.com/PeonPing/peon-ping):
+René, Duccio, Stanis e tutta la troupe reagiscono alle smarmellate del tuo coding agent.
+Contiene linguaggio esplicito. E ci mancherebbe pure.
 
-Already have PeonPing configured for your editor?
+## Installazione — Dai, dai, dai!
 
-1. Download **[boris-1.0.0.zip](https://raw.githubusercontent.com/mgallo/openpeon-boris/main/downloads/boris-1.0.0.zip)**.
-2. Extract it. You will get a folder named `boris`.
-3. Open a terminal in the folder containing `boris` and run:
+Hai già configurato PeonPing per il tuo editor? Allora apri tutto:
+
+1. Scarica **[boris-1.0.0.zip](https://raw.githubusercontent.com/mgallo/openpeon-boris/main/downloads/boris-1.0.0.zip)**.
+2. Estrai l'archivio: troverai una cartella chiamata `boris`.
+3. Apri un terminale nella cartella che contiene `boris` ed esegui:
 
    ```sh
    peon packs install-local ./boris
    peon packs use boris
    ```
 
-That's it. The ZIP contains only the manifest, audio, and credits.
-No cloning or project Python scripts required. PeonPing manages its own runtime dependencies.
-The archive checksum is in [SHA256SUMS](downloads/SHA256SUMS).
+E ora possiamo girare. Lo ZIP contiene solo il manifest, gli audio e i crediti.
+Non devi clonare il repository né eseguire gli script Python del progetto.
+PeonPing gestisce le proprie dipendenze di esecuzione.
+Il checksum dell'archivio è in [SHA256SUMS](downloads/SHA256SUMS).
 
-To replace an existing Boris installation, use
-`peon packs install-local ./boris --force`, then `peon packs use boris`.
+Per sostituire un'installazione di Boris già presente, esegui
+`peon packs install-local ./boris --force`, poi `peon packs use boris`.
 
-Optional preview:
+Vuoi sentire se funziona? Dai, facciamo una prova:
 
 ```sh
 peon preview task.complete
 ```
 
-Boris is not yet listed in the OpenPeon registry. Until it is accepted, use the
-ZIP above. After registration, installation will also be available with
+Boris non è ancora nel registro OpenPeon: finché non viene accettato, usa lo
+ZIP qui sopra. Dopo la registrazione potrai installarlo anche con
 `peon packs use --install boris`.
 
-## New to PeonPing?
+## Non hai PeonPing? — Non c'hai capito un cazzo?
 
-Install PeonPing once, then configure its integration for your editor using the
-[official setup instructions](https://github.com/PeonPing/peon-ping#install).
-With Homebrew on macOS or Linux:
+Installa PeonPing una volta, poi configura l'integrazione per il tuo editor seguendo le
+[istruzioni ufficiali](https://github.com/PeonPing/peon-ping#install).
+Con Homebrew su macOS o Linux:
 
 ```sh
 brew install PeonPing/tap/peon-ping
 peon-ping-setup
 ```
 
-Follow the adapter instructions for your editor, then install Boris above.
-The pack supplies sounds; PeonPing and its editor adapter trigger playback.
-Events available depend on the adapter.
+Segui le istruzioni dell'adattatore per il tuo editor, poi installa Boris come indicato sopra.
+Il soundpack fornisce i suoni; PeonPing e l'adattatore dell'editor li fanno partire.
+Gli eventi disponibili dipendono dall'adattatore.
 
-## Controls
+## Comandi
+
+Per mettere in pausa, riprendere, regolare il volume e controllare lo stato:
 
 ```sh
 peon pause
@@ -58,9 +64,9 @@ peon volume 0.5
 peon status
 ```
 
-## What you will hear
+## Cosa sentirai — Ce se capisce e ’nce se capisce
 
-| Category | Clips |
+| Categoria | Clip |
 | --- | --- |
 | `session.start` | Dai, dai, dai! / Apri tutto |
 | `task.acknowledge` | Apri tutto / Dai, dai, dai! |
@@ -72,19 +78,21 @@ peon status
 | `session.end` | Sticazzi |
 | `task.progress` | Se me vedi distratto… |
 
-`task.acknowledge` is disabled by default in PeonPing. `session.end` and
-`task.progress` are optional CESP categories; current built-in PeonPing hooks
-do not trigger them. They remain available for previews and compatible players.
+`task.acknowledge` è disabilitato per impostazione predefinita in PeonPing.
+`session.end` e `task.progress` sono categorie CESP opzionali: gli hook integrati
+attuali di PeonPing non le attivano. Restano disponibili per le anteprime e i lettori compatibili.
 
-## Development
+## Sviluppo — La qualità c’ha rotto er cazzo
 
-The source repo also includes a browser soundboard and optional Python tools
-for validation, local playback, and release packaging. These tools are not part
-of the downloadable sound pack.
+Nel repository trovi anche una soundboard per il browser e strumenti Python opzionali
+per la validazione, la riproduzione locale e la creazione degli archivi di rilascio.
+Questi strumenti non fanno parte del soundpack scaricabile.
 
-- [Development and release guide](docs/development.md)
-- [Optional workspace setup](docs/local-setup.md)
-- [Audio credits and provenance](CREDITS.md)
+La documentazione tecnica qui sotto è ancora in inglese. Stanis approverebbe:
 
-The pack follows [CESP 1.0](https://openpeon.com/spec). Clips are unchanged,
-approximately 0.7–6.8 seconds long. All audio rights remain with their respective owners.
+- [Guida allo sviluppo e ai rilasci](docs/development.md)
+- [Configurazione facoltativa dell'ambiente di lavoro](docs/local-setup.md)
+- [Crediti e provenienza degli audio](CREDITS.md)
+
+Il pack segue [CESP 1.0](https://openpeon.com/spec). Le clip non sono modificate
+e durano circa 0,7–6,8 secondi. Tutti i diritti sugli audio restano ai rispettivi titolari.
